@@ -64,7 +64,21 @@ namespace MusicHistoryLastOne.Controllers
                 return BadRequest(ModelState);
             }
 
-            Tracks track = _context.Tracks.Single(m => m.TrackId == id);
+            IQueryable<TrackDetails> track = from t in _context.Tracks
+                                             where t.TrackId == id
+                                             join a in _context.Albums
+                                             on t.AlbumId equals a.AlbumId
+                                             select new TrackDetails
+                                              {
+                                                  TrackTitle = t.TrackTitle,
+                                                  Author = t.Author,
+                                                  Genre = t.Genre,
+                                                  Artist = a.Artist,
+                                                  YearReleased = a.YearReleased,
+                                                  AlbumTitle = a.AlbumTitle
+                                              };
+
+            // Tracks track = _context.Tracks.Single(m => m.TrackId == id);
 
             if (track == null)
             {
