@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{91BE96F3-0AC4-4921-9026-510E78DF90B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{62E41573-A00E-46E9-831A-A152172CBFC6}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MusicHistoryLastOne", "src\MusicHistoryLastOne\MusicHistoryLastOne.xproj", "{A4C18EFB-2E7A-4638-B192-3EE7D34A6183}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A4C18EFB-2E7A-4638-B192-3EE7D34A6183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4C18EFB-2E7A-4638-B192-3EE7D34A6183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4C18EFB-2E7A-4638-B192-3EE7D34A6183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4C18EFB-2E7A-4638-B192-3EE7D34A6183}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A4C18EFB-2E7A-4638-B192-3EE7D34A6183} = {91BE96F3-0AC4-4921-9026-510E78DF90B9}
+	EndGlobalSection
+EndGlobal
