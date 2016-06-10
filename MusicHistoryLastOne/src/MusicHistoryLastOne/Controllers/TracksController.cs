@@ -34,8 +34,14 @@ namespace MusicHistoryLastOne.Controllers
                 return BadRequest(ModelState);
             }
 
-            IQueryable<Tracks> track = from t in _context.Tracks
-                                       select t;
+            IQueryable<FullTrack> track = from t in _context.Tracks
+                                       join a in _context.Albums
+                                       on t.AlbumId equals a.AlbumId 
+                                       select new FullTrack{
+                                           TrackTitle = t.TrackTitle,
+                                           Artist = a.Artist,
+                                           UserId = t.UserId
+                                       };
 
             if (UserId != null)
             {
