@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using MusicHistoryLastOne.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,45 +18,39 @@ namespace MusicHistoryLastOne.Controllers
     public class TracksController : Controller
     {
         private LastOneContext _context;
+        private object StatusCodes;
 
-        public InventoryController(NotDollsContext context)
+        public TracksController(LastOneContext context)
         {
             _context = context;
         }
 
         // GET: api/values
         [HttpGet]
-        public IActionResult Get([FromQuery]int? GeekId, [FromQuery]int? Year)
+        public IActionResult Get([FromQuery]int? UserId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IQueryable<Inventory> inventory = from i in _context.Inventory
-                                              select i;
+            IQueryable<Tracks> track = from t in _context.Tracks
+                                       select t;
 
-            if (Year != null)
+            if (UserId != null)
             {
-                inventory = inventory.Where(inv => inv.Year == Year);
+                track = track.Where(inv => inv.UserId == UserId);
             }
 
-            if (GeekId != null)
-            {
-                inventory = inventory.Where(inv => inv.GeekId == GeekId);
-            }
-
-            if (inventory == null)
+            if (track == null)
             {
                 return NotFound();
             }
-
-            return Ok(inventory);
+            return Ok(track);
         }
 
-
         // GET api/values/5
-        [HttpGet("{id}", Name = "GetInventory")]
+        [HttpGet("{id}", Name = "GetTracks")]
         public IActionResult Get(int id)
         {
             if (!ModelState.IsValid)
@@ -62,35 +58,35 @@ namespace MusicHistoryLastOne.Controllers
                 return BadRequest(ModelState);
             }
 
-            Inventory inventory = _context.Inventory.Single(m => m.InventoryId == id);
+            Tracks track = _context.Tracks.Single(m => m.TrackId == id);
 
-            if (inventory == null)
+            if (track == null)
             {
                 return NotFound();
             }
 
-            return Ok(inventory);
+            return Ok(track);
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody]Inventory inventory)
+        public IActionResult Post([FromBody]Tracks track)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Inventory.Add(inventory);
+            _context.Tracks.Add(track);
             try
             {
                 _context.SaveChanges();
             }
             catch (DbUpdateException)
             {
-                if (InventoryExists(inventory.InventoryId))
+                if (InventoryExists(track.TrackId))
                 {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                    return new StatusCodeResult(409);
                 }
                 else
                 {
@@ -98,24 +94,24 @@ namespace MusicHistoryLastOne.Controllers
                 }
             }
 
-            return CreatedAtRoute("GetInventory", new { id = inventory.InventoryId }, inventory);
+            return CreatedAtRoute("GetTracks", new { id = track.TrackId }, track);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Inventory inventory)
+        public IActionResult Put(int id, [FromBody] Tracks track)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != inventory.InventoryId)
+            if (id != track.TrackId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(inventory).State = EntityState.Modified;
+            _context.Entry(track).State = EntityState.Modified;
 
             try
             {
@@ -133,7 +129,7 @@ namespace MusicHistoryLastOne.Controllers
                 }
             }
 
-            return new StatusCodeResult(StatusCodes.Status204NoContent);
+            return new StatusCodeResult(204);
         }
 
         // DELETE api/values/5
@@ -145,21 +141,21 @@ namespace MusicHistoryLastOne.Controllers
                 return BadRequest(ModelState);
             }
 
-            Inventory inventory = _context.Inventory.Single(m => m.InventoryId == id);
-            if (inventory == null)
+            Tracks track = _context.Tracks.Single(m => m.TrackId == id);
+            if (track == null)
             {
                 return NotFound();
             }
 
-            _context.Inventory.Remove(inventory);
+            _context.Tracks.Remove(track);
             _context.SaveChanges();
 
-            return Ok(inventory);
+            return Ok(track);
         }
 
         private bool InventoryExists(int id)
         {
-            return _context.Inventory.Count(e => e.InventoryId == id) > 0;
+            return _context.Tracks.Count(e => e.TrackId == id) > 0;
         }
     }
 }
