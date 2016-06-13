@@ -40,6 +40,10 @@ namespace MusicHistoryLastOne.Controllers
                                        select new FullTrack{
                                            TrackTitle = t.TrackTitle,
                                            Artist = a.Artist,
+                                           YearReleased = a.YearReleased,
+                                           Genre = t.Genre,
+                                           Author = t.Author,
+                                           AlbumTitle = a.AlbumTitle,
                                            UserId = t.UserId,
                                            TrackId = t.TrackId
                                        };
