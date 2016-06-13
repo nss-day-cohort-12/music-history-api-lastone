@@ -40,7 +40,8 @@ namespace MusicHistoryLastOne.Controllers
                                        select new FullTrack{
                                            TrackTitle = t.TrackTitle,
                                            Artist = a.Artist,
-                                           UserId = t.UserId
+                                           UserId = t.UserId,
+                                           TrackId = t.TrackId
                                        };
 
             if (UserId != null)

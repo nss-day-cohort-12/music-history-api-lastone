@@ -10,5 +10,6 @@ namespace MusicHistoryLastOne.Models
         public string TrackTitle { get; set; }
         public string Artist { get; set; }
         public int UserId { get; set; }
+        public int TrackId { get; set; }
     }
 }
